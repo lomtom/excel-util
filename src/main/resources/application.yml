@@ -1,0 +1,8 @@
+
+oss:
+  bucket: demo-excel
+  regionId: cn-hangzhou
+  ak: *************
+  sk: ********************
+  maxLength: 1048576000
+  outTime: 1800000
