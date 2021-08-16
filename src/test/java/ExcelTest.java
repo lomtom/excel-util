@@ -1,4 +1,3 @@
-import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
 import com.lomtom.MyTestApplication;
@@ -13,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.List;
 
 /**
  * @author lomtom
@@ -27,9 +22,9 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 public class ExcelTest {
 
-    String url1 = "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/测试.xlsx";
-    String url2 = "D:\\doc\\业务\\农合联\\芦笋\\测试.xlsx";
-    String url3 = "D:\\doc\\业务\\农合联\\芦笋\\会员档案信息.xls";
+    String url1 = "https://demo-excel.oss-cn-hangzhou.aliyuncs.com/测试.xlsx";
+    String url2 = "D:\\测试.xlsx";
+    String url3 = "D:\\会员档案信息.xls";
 
     @Autowired
     OssProperties ossProperties;
