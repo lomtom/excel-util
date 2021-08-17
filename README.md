@@ -2,9 +2,10 @@
 
 表格导入工具类系列：
 1. [Easypoi（一）表格导入工具类封装](https://blog.csdn.net/qq_41929184/article/details/119734707)
-2. [Easypoi（二）表格导入工具类使用](https://blog.csdn.net/qq_41929184/article/details/119738265)
+2. [Easypoi（二）表格工具类使用](https://blog.csdn.net/qq_41929184/article/details/119738265)
 
 注： [工具类及测试github源码](https://github.com/zero028/demo_excel)
+
 
 ### 种类
 工具类导入分为六种，分别为：
@@ -36,7 +37,7 @@ OssProperties ossProperties;
 TalentImportVerifyHandler talentImportVerifyHandler;
 
 ```
-
+## 导入
 ### 1、调用OSS(带有图片)
 ```java
 
@@ -267,3 +268,44 @@ public class TalentImportVerifyHandler implements IExcelVerifyHandler<MemberReco
      <version>4.1.3</version>
  </dependency>
 ```
+## 导出
+### 1、导出到本地
+需要指定文件保存的路径与文件名
+```java
+List<CommodityTemplate> data = new ArrayList<>();
+{
+    data.add(new CommodityTemplate("1","小飞扬","https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic16141250914.JPG",new Date(),"https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic34024334651.JPG"));
+    data.add(new CommodityTemplate("2","小道科","https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic3728058748.JPG",new Date(),"https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic22109010312.JPG"));
+    data.add(new CommodityTemplate("3","小浩林,","https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic3728058748.JPG",new Date(),"https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic49446558335.JPG"));
+}
+
+@Test
+public void exportLocal() throws Exception {
+    ExportParams params1 = new ExportParams();
+    params1.setHeight((short) 28);
+    List<CommodityTemplate> list = data;
+    String url = ExcelExportUtils.exportExcelByLocal("D:\\", "ceshi.xls", CommodityTemplate.class, ossProperties, list, params1);
+    System.out.println(url);
+}
+```
+
+### 2、导出到OSS
+需要指定文件保存的路径（不包括域名）与文件名
+```java
+List<CommodityTemplate> data = new ArrayList<>();
+{
+    data.add(new CommodityTemplate("1","小飞扬","https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic16141250914.JPG",new Date(),"https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic34024334651.JPG"));
+    data.add(new CommodityTemplate("2","小道科","https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic3728058748.JPG",new Date(),"https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic22109010312.JPG"));
+    data.add(new CommodityTemplate("3","小浩林,","https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic3728058748.JPG",new Date(),"https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic49446558335.JPG"));
+}
+
+@Test
+public void exportOSS() throws Exception {
+    ExportParams params1 = new ExportParams();
+    params1.setHeight((short) 28);
+    List<CommodityTemplate> list = data;
+    String url = ExcelExportUtils.exportExcelByOss("changxing/test/", "ceshi.xls", CommodityTemplate.class, ossProperties, list, params1);
+    System.out.println(url);
+}
+```
+![](https://img-blog.csdnimg.cn/94c5095d8b2041d9b9b65f3a34a5f064.png#pic_center)
