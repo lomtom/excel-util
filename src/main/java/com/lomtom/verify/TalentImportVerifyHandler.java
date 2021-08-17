@@ -20,7 +20,6 @@ public class TalentImportVerifyHandler implements IExcelVerifyHandler<MemberReco
     List<String> test1 = new ArrayList<>();
 
 
-
     @Override
     public ExcelVerifyHandlerResult verifyHandler(MemberRecord entity) {
         String asparagusCode = entity.getAsparagusCode();

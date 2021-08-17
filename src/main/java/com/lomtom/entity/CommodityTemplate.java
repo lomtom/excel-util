@@ -37,16 +37,24 @@ public class CommodityTemplate implements IExcelDataModel, IExcelModel {
     /**
      * 商品图片
      */
-    @Excel(name = "图片", type = 2, savePath = "\\imgggg")
+    @Excel(name = "图片", type = 2, savePath = "\\imgggg",width = 20)
     private String imageUrl;
 
     /**
      * 创建时间
      */
-    @Excel(name = "日期")
+    @Excel(name = "日期",exportFormat = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
-    @Excel(name = "头像", type = 2, savePath = "\\imgggg")
+    @Excel(name = "头像", type = 2, savePath = "\\imgggg",width = 20)
     private String img;
+
+    public CommodityTemplate(String id, String name, String imageUrl, Date createTime, String img) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.createTime = createTime;
+        this.img = img;
+    }
 }
