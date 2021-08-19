@@ -20,11 +20,11 @@ import java.io.FileInputStream;
  **/
 @SpringBootTest(classes = {MyTestApplication.class})
 @RunWith(SpringRunner.class)
-public class ExcelTest {
+public class ExcelImportTest {
 
-    String url1 = "https://demo-excel.oss-cn-hangzhou.aliyuncs.com/测试.xlsx";
-    String url2 = "D:\\测试.xlsx";
-    String url3 = "D:\\会员档案信息.xls";
+    String url1 = "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/测试.xlsx";
+    String url2 = "D:\\doc\\业务\\农合联\\芦笋\\测试.xlsx";
+    String url3 = "D:\\doc\\业务\\农合联\\芦笋\\会员档案信息.xls";
 
     @Autowired
     OssProperties ossProperties;
@@ -60,7 +60,7 @@ public class ExcelTest {
     public void importExcelByLocalUrlWithImg() throws Exception {
         ImportParams params = new ImportParams();
         ExcelImportResult<CommodityTemplate> result= ExcelImportUtils.importExcelByLocalUrlWithImg(url2,
-                CommodityTemplate.class,ossProperties,"changxing/test/",params);
+                CommodityTemplate.class,ossProperties,"changxing/test/img/",params);
         if (result.isVerifyFail()){
             for (CommodityTemplate entity : result.getFailList()) {
                 String msg = "第" + entity.getRowNum() + "行的错误是：" + entity.getErrorMsg();
@@ -134,11 +134,12 @@ public class ExcelTest {
     @Test
     public void importExcelByLocalUrl() throws Exception {
         ImportParams params = new ImportParams();
+        params.setVerifyHandler(talentImportVerifyHandler);
         ExcelImportResult<MemberRecord> result= ExcelImportUtils.importExcelByLocalUrl(url3,MemberRecord.class,params);
         if (result.isVerifyFail()){
             for (MemberRecord entity : result.getFailList()) {
                 String msg = "第" + entity.getRowNum() + "行的错误是：" + entity.getErrorMsg();
-                System.out.println(msg);
+                System.out.println(entity);
             }
         }
         result.getList().forEach(System.out::println);
