@@ -69,7 +69,8 @@ public class ExcelImportUtils {
     private static <T> ExcelImportResult<T> importExcelByStreamWithImg(InputStream in, Class<T> tClass, String bucket, String regionId, String accessKeyId, String accessKeySecret, String rootPath, ImportParams importParams) throws Exception {
         String endpoint = "https://oss-" + regionId + ".aliyuncs.com";
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-        ExcelImportResult<T> results = getResults(ossClient, bucket, in, tClass, rootPath, regionId, importParams);
+        ExcelImportResult<T> results = getResults(in, tClass, importParams);
+        uploadImg(results.getList(), ossClient, bucket, rootPath, regionId);
         ossClient.shutdown();
         return results;
     }
@@ -115,7 +116,8 @@ public class ExcelImportUtils {
                 accessKeyId, accessKeySecret);
         OSSObject ossObject = ossClient.getObject(bucket, url);
         InputStream in = ossObject.getObjectContent();
-        ExcelImportResult<T> results = getResults(ossClient, bucket, in, tClass, rootPath, regionId, importParams);
+        ExcelImportResult<T> results = getResults(in, tClass, importParams);
+        uploadImg(results.getList(), ossClient, bucket, rootPath, regionId);
         ossClient.shutdown();
         return results;
     }
@@ -132,13 +134,6 @@ public class ExcelImportUtils {
         ossClient.shutdown();
         return results;
     }
-
-    private static <T> ExcelImportResult<T> getResults(OSS ossClient, String bucket, InputStream in, Class<T> tClass, String rootPath, String regionId, ImportParams importParams) throws Exception {
-        ExcelImportResult<T> results = ExcelImportUtil.importExcelMore(in, tClass, importParams);
-        uploadImg(results.getList(), ossClient, bucket, rootPath, regionId);
-        return results;
-    }
-
 
     private static <T> ExcelImportResult<T> getResults(InputStream in, Class<T> tClass, ImportParams importParams) throws Exception {
         return ExcelImportUtil.importExcelMore(in, tClass, importParams);

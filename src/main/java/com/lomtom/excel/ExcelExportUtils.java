@@ -4,14 +4,12 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import com.lomtom.entity.CommodityTemplate;
 import com.lomtom.entity.OssProperties;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 /**
