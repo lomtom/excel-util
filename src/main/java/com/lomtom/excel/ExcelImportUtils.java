@@ -8,12 +8,12 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.OSSObject;
 import com.lomtom.entity.OssProperties;
+import com.lomtom.verify.BaseExcelVerifyHandler;
 import org.springframework.util.ObjectUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -137,6 +137,7 @@ public class ExcelImportUtils {
     }
 
     private static <T> ExcelImportResult<T> getResults(InputStream in, Class<T> tClass, ImportParams importParams) throws Exception {
+        setBaseExcelVerifyHandler(importParams);
         return ExcelImportUtil.importExcelMore(in, tClass, importParams);
     }
 
@@ -196,5 +197,11 @@ public class ExcelImportUtils {
             e.printStackTrace();
         }
         return true;
+    }
+
+    private static  <T> void setBaseExcelVerifyHandler(ImportParams importParams){
+        if(importParams.getVerifyHandler() == null){
+            importParams.setVerifyHandler(new BaseExcelVerifyHandler<T>());
+        }
     }
 }

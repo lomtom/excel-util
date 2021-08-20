@@ -96,6 +96,7 @@ public class ExcelImportTest {
     public void importExcelByStream() throws Exception {
         FileInputStream fis = new FileInputStream(url3);
         ImportParams params = new ImportParams();
+        params.setNeedCheckOrder(true);
         //自定义校验器
         params.setVerifyHandler(talentImportVerifyHandler);
         ExcelImportResult<MemberRecord> result= ExcelImportUtils.importExcelByStream(fis,MemberRecord.class,params);
