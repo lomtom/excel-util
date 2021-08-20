@@ -8,6 +8,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.OSSObject;
 import com.lomtom.entity.OssProperties;
+import org.springframework.util.ObjectUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -173,4 +174,27 @@ public class ExcelImportUtils {
         return value.toString();
     }
 
+
+    /**
+     * check nullable
+     * @param o o
+     * @return result
+     */
+    public static boolean checkFieldAllNull(Object o){
+        try{
+            for(Field field:o.getClass().getDeclaredFields()){
+                if ("rowNum".equals(field.getName()) || "errorMsg".equals(field.getName())){
+                    continue;
+                }
+                field.setAccessible(true);
+                Object object = field.get(o);
+                if(!ObjectUtils.isEmpty(object)){
+                    return false;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
