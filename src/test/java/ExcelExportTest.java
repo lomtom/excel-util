@@ -32,7 +32,7 @@ public class ExcelExportTest {
     List<CommodityTemplate> data = new ArrayList<>();
 
     {
-        data.add(new CommodityTemplate("1", "小飞扬", "https://demo-excel.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic16141250914.JPG", new Date(), "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic34024334651.JPG"));
+        data.add(new CommodityTemplate("1", "小飞扬", "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic16141250914.JPG", new Date(), "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic34024334651.JPG"));
         data.add(new CommodityTemplate("2", "小道科", "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic3728058748.JPG", new Date(), "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic22109010312.JPG"));
         data.add(new CommodityTemplate("3", "小浩林,", "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic3728058748.JPG", new Date(), "https://dap-object.oss-cn-hangzhou.aliyuncs.com/changxing/test/img/imggggpic49446558335.JPG"));
     }
@@ -66,9 +66,7 @@ public class ExcelExportTest {
         byte[] bytes = ExcelExportUtils.exportExcelToOutPutStream(CommodityTemplate.class, list, params1);
         File file =  new File(filePath + "\\" + fileName);
         FileOutputStream fos = new FileOutputStream(file);;
-        BufferedOutputStream bos = new BufferedOutputStream(fos);
-        bos.write(bytes);
-        bos.close();
+        fos.write(bytes);
         fos.close();
     }
 }
